@@ -88,7 +88,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           IconButton(
             icon: const Icon(Icons.share),
-            tooltip: 'Export to CSV',
+            tooltip: 'Click to Share CSV',
             onPressed: () {
               exportAndShareStudents(_filtered);
             },
