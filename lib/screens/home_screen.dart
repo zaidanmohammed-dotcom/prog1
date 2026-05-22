@@ -4,6 +4,7 @@ import '../models/student.dart';
 import '../widgets/student_card.dart';
 import 'add_student_screen.dart';
 import 'student_detail_screen.dart';
+import '../csv_export.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -38,7 +39,8 @@ class _HomeScreenState extends State<HomeScreen> {
     final query = _searchController.text.toLowerCase();
     setState(() {
       _filtered = _students.where((s) {
-        final matchesSearch = s.name.toLowerCase().contains(query) ||
+        final matchesSearch =
+            s.name.toLowerCase().contains(query) ||
             s.studentNumber.toLowerCase().contains(query) ||
             s.department.toLowerCase().contains(query);
         final matchesLevel =
@@ -82,6 +84,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 style: const TextStyle(fontSize: 14),
               ),
             ),
+          ),
+          IconButton(
+            icon: const Icon(Icons.share),
+            tooltip: 'Export to CSV',
+            onPressed: () {
+              exportAndShareStudents(_filtered);
+            },
           ),
         ],
       ),
@@ -174,8 +183,7 @@ class _HomeScreenState extends State<HomeScreen> {
             selectedColor: Colors.indigo,
             labelStyle: TextStyle(
               color: selected ? Colors.white : Colors.black87,
-              fontWeight:
-                  selected ? FontWeight.bold : FontWeight.normal,
+              fontWeight: selected ? FontWeight.bold : FontWeight.normal,
             ),
           );
         },
